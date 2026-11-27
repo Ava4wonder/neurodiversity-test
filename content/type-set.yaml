@@ -1,0 +1,315 @@
+# =============================================================================
+#  TYPE SET: the result categories and the profile each one stands for
+# =============================================================================
+#  Each type is a PROTOTYPE: an idealised score level on every dimension.
+#  The scoring engine (content/scoring.yaml -> classification) compares a
+#  person's dimension profile to every prototype and reports how well each one
+#  fits.
+#
+#  prototype.core      dimensions that define the type (weighted `core_weight`)
+#  prototype.expected  non-default levels on supporting dimensions
+#                      (weighted `peripheral_weight`)
+#  any other dimension is expected at `default_level` (peripheral weight)
+#
+#  Levels (high / moderate / low) map to numbers in scoring.yaml -> levels.
+#  `assignment: fallback` types have no prototype. The engine assigns them
+#  when no prototype fits well enough (see scoring.yaml -> classification).
+#
+#  `refs` cite the evidence for the "associated with" statement and the
+#  strengths text. Strengths are commonly REPORTED by people with the profile
+#  (mostly qualitative studies). They are not guaranteed abilities.
+#  `support_tips` are practical ideas, not clinically validated interventions.
+# =============================================================================
+
+meta:
+  version: 0.1.0
+  status: draft
+  test_set_version: 0.1.0
+  default_level: low
+  changelog:
+    - version: 0.1.0
+      date: 2026-11-27
+      summary: >
+        Initial 9 prototype types plus 1 fallback type (Mosaic). Prototypes are
+        expert-set placeholders, not yet derived from data (e.g. latent profile
+        analysis).
+
+types:
+  - id: SPARK
+    name: The Spark
+    mascot: hummingbird
+    palette: { primary: "#F2643D", secondary: "#FFC857", background: "#FFF1E8", ink: "#5A1E0E" }
+    tagline: A fast-moving mind with bursts of brilliance.
+    associated_with: Traits often associated with ADHD (combined presentation)
+    assignment: prototype
+    prototype:
+      core: { ATT: high, IMP: high, EXF: high }
+      expected: { SEN: moderate }
+    refs: [apa2022, kessler2005, sedgwick2019, ashinoff2021]
+    summary: >
+      Your profile shows high attention drift, restless energy and executive
+      load together. Sparks often think in leaps, bring energy to a room and
+      do their best work when something is new, urgent or deeply interesting.
+    strengths:
+      - Energy, enthusiasm and quick thinking
+      - Creative leaps and idea generation
+      - Thrives in fast-paced or crisis situations
+      - Can hyperfocus on things that spark interest
+    challenges:
+      - Keeping focus on routine or low-interest tasks
+      - Time management and following through on plans
+      - Acting or speaking before thinking
+    support_tips:
+      - Use external reminders (alarms, visual timers) instead of relying on memory
+      - Break work into short sprints with movement breaks
+      - "Body doubling: work alongside someone to make starting easier"
+
+  - id: DRIFTER
+    name: The Daydreamer
+    mascot: otter
+    palette: { primary: "#3E8FB0", secondary: "#9AD1D4", background: "#EAF6F7", ink: "#123A49" }
+    tagline: A rich inner world that loves to wander.
+    associated_with: Traits often associated with ADHD (predominantly inattentive presentation)
+    assignment: prototype
+    prototype:
+      core: { ATT: high, EXF: high, IMP: low }
+      expected: {}
+    refs: [apa2022, kessler2005, seli2015]
+    summary: >
+      Your attention drift and executive load are high, but restless energy is
+      low. Daydreamers often seem calm on the outside while their thoughts
+      travel far. They tend to be imaginative and reflective, but can get lost
+      in time and tasks.
+    strengths:
+      - Imagination and reflective thinking
+      - Calm, easy-going presence
+      - Makes unexpected connections between ideas
+    challenges:
+      - Drifting off during conversations or reading
+      - Starting tasks and keeping track of time
+      - Often overlooked because the struggle is quiet
+    support_tips:
+      - Write tasks down the moment they come up
+      - Pair dull tasks with something stimulating (music, a pleasant place)
+      - Ask for written summaries of spoken instructions
+
+  - id: DIVER
+    name: The Deep Diver
+    mascot: octopus
+    palette: { primary: "#6C4AB6", secondary: "#B9A6F2", background: "#F2EEFC", ink: "#2A1A55" }
+    tagline: Goes deeper than anyone, and notices everything on the way down.
+    associated_with: Traits often associated with autism
+    assignment: prototype
+    prototype:
+      core: { SOC: high, SEN: high, RTN: high }
+      expected: { EXF: moderate }
+    refs: [apa2022, baroncohen2001, bensasson2009, hill2004, russell2019]
+    summary: >
+      Your profile shows high social decoding effort, sensory intensity, and a
+      preference for routine and deep focus. Deep Divers often build real
+      expertise, notice patterns and details others miss, and value honesty
+      and predictability.
+    strengths:
+      - Deep, focused expertise in areas of interest
+      - Attention to detail and pattern recognition
+      - Honest, direct and loyal
+      - Strong sense of fairness and consistency
+    challenges:
+      - Decoding unspoken social rules takes energy
+      - Sensory overload in busy environments
+      - Unexpected changes can be distressing
+    support_tips:
+      - Plan recovery time after social or sensory-heavy events
+      - Noise-cancelling headphones or sunglasses for overload
+      - Ask for agendas and advance notice of changes
+
+  - id: KALEIDO
+    name: The Kaleidoscope
+    mascot: raccoon
+    palette: { primary: "#D6457A", secondary: "#56C1A6", background: "#FCEEF4", ink: "#4E1430" }
+    tagline: Many vivid patterns in one ever-turning view.
+    associated_with: Traits often associated with co-occurring autism and ADHD (sometimes called AuDHD)
+    assignment: prototype
+    prototype:
+      core: { ATT: high, EXF: high, SOC: high, SEN: high, RTN: high }
+      expected: { IMP: moderate }
+    refs: [rong2021, bijlenga2017, hull2019]
+    summary: >
+      Your profile combines high attention drift and executive load with high
+      social decoding, sensory intensity and deep focus. Kaleidoscopes often
+      feel a push and pull between craving novelty and needing predictability,
+      and bring an unusually creative and intense way of seeing the world.
+    strengths:
+      - Intense curiosity combined with deep focus
+      - Highly original, creative thinking
+      - Notices details and makes unusual connections
+    challenges:
+      - Pulled between novelty and routine
+      - Higher risk of burnout from masking and overload
+      - Executive tasks and sensory input together can be exhausting
+    support_tips:
+      - "Build flexible routines: a predictable structure with variety inside it"
+      - Schedule recovery time on purpose, not only when exhausted
+      - Use special interests as motivation anchors
+
+  - id: STORYTELLER
+    name: The Storyteller
+    mascot: fox
+    palette: { primary: "#E07B24", secondary: "#F6C28B", background: "#FDF2E6", ink: "#55290A" }
+    tagline: Sees the whole story, even when the words get jumbled.
+    associated_with: Traits often associated with dyslexia
+    assignment: prototype
+    prototype:
+      core: { LIT: high }
+      expected: { NUM: moderate }
+    refs: [peterson2012, landerl2010, taylor2022]
+    summary: >
+      Your word decoding score stands out: reading and spelling take extra
+      effort. Many people with this profile are strong big-picture thinkers,
+      verbal reasoners and storytellers who find creative routes around text.
+    strengths:
+      - Big-picture and narrative reasoning
+      - Strong spoken communication
+      - Creative, visual and spatial problem-solving
+    challenges:
+      - Reading speed and spelling
+      - Note-taking and written exams
+      - Reading aloud on the spot
+    support_tips:
+      - Text-to-speech and audiobooks
+      - Dyslexia-friendly fonts, larger spacing and tinted backgrounds
+      - Ask for extra time and digital formats
+
+  - id: WORDSMITH
+    name: The Wordsmith
+    mascot: parrot
+    palette: { primary: "#2E9E5B", secondary: "#F2C14E", background: "#EAF7EF", ink: "#0F3D22" }
+    tagline: Finds the words when the numbers won't sit still.
+    associated_with: Traits often associated with dyscalculia
+    assignment: prototype
+    prototype:
+      core: { NUM: high }
+      expected: { LIT: moderate }
+    refs: [butterworth2011, landerl2010]
+    summary: >
+      Your number sense score stands out: numbers, quantities and arithmetic
+      take extra effort. People with this profile often rely on language,
+      reasoning and clever workarounds, and are frequently strong
+      communicators.
+    strengths:
+      - Strong verbal reasoning and language skills
+      - Persistent and strategic, with good workarounds
+      - Creative, non-numeric problem-solving
+    challenges:
+      - Mental arithmetic and managing money
+      - Reading clocks, timetables and measurements
+      - Remembering number sequences such as PINs
+    support_tips:
+      - Calculator and budgeting apps without guilt
+      - Visual or concrete representations of quantities
+      - Digital clocks and calendar reminders
+
+  - id: IMPROVISER
+    name: The Improviser
+    mascot: penguin
+    palette: { primary: "#2F5D8C", secondary: "#F2A541", background: "#EAF0F7", ink: "#0F2238" }
+    tagline: Clumsy on land, brilliant in the water.
+    associated_with: Traits often associated with dyspraxia (developmental coordination disorder)
+    assignment: prototype
+    prototype:
+      core: { MOT: high }
+      expected: { EXF: moderate }
+    refs: [blank2019, kirby2010]
+    summary: >
+      Your motor coordination score stands out: movement, handwriting and
+      fiddly tasks take extra effort. Improvisers often become inventive
+      problem-solvers, strong verbal thinkers and empathetic friends.
+    strengths:
+      - Creative workarounds and lateral thinking
+      - Determination and resilience
+      - Often strong verbal and strategic skills
+    challenges:
+      - Coordination, balance and spatial awareness
+      - Handwriting and fine motor tasks
+      - Learning new physical routines
+    support_tips:
+      - Type instead of handwriting where possible
+      - Allow extra time for new physical skills and practise in private
+      - Use adaptive tools (easy-grip pens, elastic laces)
+
+  - id: TUNER
+    name: The Tuner
+    mascot: rabbit
+    palette: { primary: "#8A6FDF", secondary: "#F7B2C4", background: "#F4F0FD", ink: "#2D2160" }
+    tagline: Picks up the signals everyone else filters out.
+    associated_with: Traits often associated with sensory processing sensitivity
+    assignment: prototype
+    prototype:
+      core: { SEN: high }
+      expected: { RTN: moderate }
+    refs: [aron1997, dunn1997, panagiotidi2018]
+    summary: >
+      Your sensory intensity stands out, while other dimensions are lower.
+      Tuners experience sound, light, texture and smell vividly, which can be a
+      source of deep appreciation and of overload.
+    strengths:
+      - Rich appreciation of art, music, nature and texture
+      - Notices subtle changes in people and places
+      - Often deeply empathetic
+    challenges:
+      - Overwhelm in noisy, bright or crowded places
+      - Needs more recovery time
+      - Discomfort from fabrics, sounds or smells
+    support_tips:
+      - Design a calm "low-input" space at home or work
+      - Carry a sensory kit (earplugs, sunglasses, soft layers)
+      - Plan errands for quieter times
+
+  - id: NAVIGATOR
+    name: The Navigator
+    mascot: turtle
+    palette: { primary: "#3A8F7B", secondary: "#C9E4A6", background: "#EDF7F2", ink: "#12352C" }
+    tagline: Steady course, with no strong pattern in the measured traits.
+    associated_with: No elevated neurodivergent trait pattern on the measured dimensions
+    assignment: prototype
+    prototype:
+      core: { ATT: low, IMP: low, EXF: low, SOC: low, SEN: low, RTN: low, LIT: low, NUM: low, MOT: low }
+      expected: {}
+    refs: [lai2017, haslam2020]
+    summary: >
+      None of the measured dimensions stand out strongly. That doesn't mean
+      you have no differences: this test covers only 9 dimensions, and people
+      can mask or compensate well. Every brain is unique.
+    strengths:
+      - Balanced across the measured dimensions
+      - Can often adapt to many environments
+      - Well placed to be an ally to neurodivergent people
+    challenges:
+      - Traits outside these 9 dimensions aren't measured
+      - Compensation or masking can hide differences in self-report
+    support_tips:
+      - If you still recognise yourself in other types, read their descriptions
+      - Talk to a professional if you have ongoing difficulties
+      - Learn about neurodiversity to support people around you
+
+  - id: MOSAIC
+    name: The Mosaic
+    mascot: chameleon
+    palette: { primary: "#5B9B3C", secondary: "#F28C28", background: "#F0F7EA", ink: "#21401A" }
+    tagline: A one-of-a-kind pattern that no single template captures.
+    associated_with: Elevated traits in a combination that doesn't match one prototype closely
+    assignment: fallback
+    refs: [haslam2020]
+    summary: >
+      One or more of your dimensions are elevated, but in a combination that
+      doesn't closely match any single prototype. Look at your dimension
+      profile below: the elevated dimensions are the most informative part of
+      your result.
+    strengths:
+      - A unique combination of strengths
+      - Often highly adaptable
+    challenges:
+      - Generic advice may not fit; you may need tailored strategies
+    support_tips:
+      - Focus on the strategies for each elevated dimension
+      - Consider a broad professional assessment rather than a single-condition one

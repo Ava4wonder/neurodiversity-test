@@ -1,0 +1,141 @@
+# =============================================================================
+#  SCORING MECHANISM: how responses become dimension scores, a type and
+#  validity flags
+# =============================================================================
+#  The engine in src/engine/ interprets every number here. Nothing is
+#  hard-coded in the UI. Change a parameter here, bump the version, run
+#  `npm run validate && npm run simulate`, and record the effect in the
+#  changelog.
+#
+#  Formulas and rationale: docs/03-scoring-mechanism.md
+# =============================================================================
+
+meta:
+  version: 0.1.0
+  status: draft
+  test_set_version: 0.1.0
+  type_set_version: 0.1.0
+  changelog:
+    - version: 0.1.0
+      date: 2026-11-27
+      summary: >
+        Initial scoring: evidence-weighted keyed mean -> 0-100 per dimension,
+        optional task blending, weighted prototype distance + softmax
+        classification, four validity rules. All thresholds are provisional expert settings, not
+        empirically calibrated yet.
+
+# -----------------------------------------------------------------------------
+# 1. ITEM -> DIMENSION
+# -----------------------------------------------------------------------------
+dimension_scoring:
+  method: keyed_mean
+  # Item weight comes from its evidence level unless the item sets `weight`.
+  # Exploratory items (weight 0) are collected and shown but not scored.
+  evidence_weights:
+    established: 1.0
+    emerging: 0.5
+    exploratory: 0.0
+  # likert/bipolar forward:  keyed = value
+  # likert/bipolar reverse:  keyed = (scale_max + scale_min) - value
+  # choice:                  keyed = chosen option's `scores[dimension]`
+  # questionnaire score = 100 * (weighted_mean(keyed) - scale_min) / (scale_max - scale_min)
+  min_answered_ratio: 0.75     # of the scored (weight > 0) items; fewer -> "insufficient"
+  decimals: 0
+
+# -----------------------------------------------------------------------------
+# 2. BEHAVIOURAL TASK -> DIMENSION (optional; used only if the task was done)
+#    task_score = linear map of the metric from `from` to 0..100 (clamped)
+#    final = (1 - sum(weights)) * questionnaire + sum(weight * task_score)
+#    The `from` ranges are PLACEHOLDERS until pilot norms exist.
+# -----------------------------------------------------------------------------
+task_integration:
+  enabled: true
+  refs: [wright2014, kofler2013]
+  contributions:
+    - task: GNG
+      metric: commission_rate
+      dimension: IMP
+      weight: 0.20
+      from: [0.05, 0.45]       # 5% false alarms -> 0, 45% -> 100
+    - task: GNG
+      metric: rt_cv
+      dimension: ATT
+      weight: 0.15
+      from: [0.12, 0.40]
+    - task: GNG
+      metric: omission_rate
+      dimension: ATT
+      weight: 0.10
+      from: [0.00, 0.20]
+  min_valid_go_trials: 30      # below this, task metrics are ignored
+
+# -----------------------------------------------------------------------------
+# 3. SCORE BANDS (display + "elevated" signature)
+# -----------------------------------------------------------------------------
+bands:
+  - { id: low,      label: Low,      min: 0 }
+  - { id: moderate, label: Moderate, min: 35 }
+  - { id: elevated, label: Elevated, min: 60 }
+  - { id: high,     label: High,     min: 80 }
+elevated_threshold: 60         # dimensions >= this appear in the profile signature
+
+# -----------------------------------------------------------------------------
+# 4. NORMS (percentiles). Not collected yet: the UI shows raw 0-100 scores
+#    and labels them "un-normed". Fill in after piloting:
+#    dimensions: { ATT: { mean: 42.1, sd: 18.3 }, ... }
+# -----------------------------------------------------------------------------
+norms:
+  status: not_collected
+  sample: null
+  dimensions: {}
+
+# -----------------------------------------------------------------------------
+# 5. CLASSIFICATION: weighted prototype distance
+#    D_t   = sqrt( sum_d w_td * (s_d - target_td)^2 / sum_d w_td )
+#    fit_t = 1 - D_t / 100
+#    p_t   = softmax(-D_t / temperature) over prototype types
+# -----------------------------------------------------------------------------
+classification:
+  method: weighted_prototype_distance
+  refs: [haslam2012, haslam2020, pittenger2005, spurk2020]
+  levels: { high: 75, moderate: 50, low: 20 }
+  core_weight: 1.0
+  peripheral_weight: 0.35
+  temperature: 6
+  min_fit: 0.72                # best fit below this -> fallback rule
+  fallback:
+    type: MOSAIC
+    requires_elevated: true    # only if >= 1 dimension is elevated
+  blend_margin: 0.15           # p1 - p2 below this -> reported as a blend
+  confidence:                  # based on the top type's probability
+    - { id: high,     label: Clear match,   min_probability: 0.60 }
+    - { id: moderate, label: Likely match,  min_probability: 0.40 }
+    - { id: low,      label: Tentative match, min_probability: 0.0 }
+
+# -----------------------------------------------------------------------------
+# 6. VALIDITY: response-quality checks. Each rule gives ok / caution / invalid.
+#    The overall status is the worst one. "invalid" still shows results,
+#    but with a prominent warning and a prompt to retake.
+# -----------------------------------------------------------------------------
+validity:
+  refs: [meade2012, curran2016, huang2012]
+  attention_checks:
+    caution_if_failed: 1
+    invalid_if_failed: 2
+  consistency_pairs:
+    # opposite-keyed items about the same behaviour. After keying, a large
+    # gap means contradictory answers (e.g. "Strongly agree" to both).
+    pairs:
+      - [ATT-01, ATT-06]
+      - [SEN-01, SEN-06]
+      - [RTN-01, RTN-05]
+      - [MOT-01, MOT-05]
+    flag_if_keyed_gap_at_least: 3
+    caution_if_flagged: 2
+    invalid_if_flagged: 3
+  straightlining:
+    max_identical_run: 12      # longest run of identical answers
+    min_response_sd: 0.35      # SD across all scored raw answers
+  speed:
+    caution_median_seconds_per_item: 1.5
+    invalid_median_seconds_per_item: 0.8

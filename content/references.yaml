@@ -1,0 +1,855 @@
+# =============================================================================
+#  REFERENCES: the evidence base for the test set, type set and scoring
+# =============================================================================
+#  Every item, dimension and type cites keys from this file
+#  (`evidence.refs` / `refs`). `npm run validate` fails if a key is missing
+#  or unused. `npm run verify-refs` checks each DOI against Crossref and
+#  writes reports/reference-verification.md.
+#
+#  Citing a source here means the CONSTRUCT or FACET is supported by it.
+#  Items are original wording. No item is copied from a copyrighted
+#  instrument (guidelines section 4.6).
+# =============================================================================
+
+meta:
+  version: 0.1.0
+  style: APA 7 (rendered from fields)
+
+references:
+  # ---------------------------------------------------------------- frameworks
+  - key: apa2022
+    type: book
+    authors: American Psychiatric Association
+    year: 2022
+    title: Diagnostic and statistical manual of mental disorders (5th ed., text rev.; DSM-5-TR)
+    publisher: American Psychiatric Association Publishing
+    doi: 10.1176/appi.books.9780890425787
+    supports: Diagnostic criteria for ADHD, autism, specific learning disorder and developmental coordination disorder; source of the construct definitions.
+
+  - key: pellicano2022
+    type: article
+    authors: Pellicano, E., & den Houting, J.
+    year: 2022
+    title: "Annual Research Review: Shifting from 'normal science' to neurodiversity in autism science"
+    container: Journal of Child Psychology and Psychiatry
+    volume: 63
+    issue: 4
+    pages: 381-396
+    doi: 10.1111/jcpp.13534
+    supports: Neurodiversity-affirming framing (differences, not deficits) used throughout the report text.
+
+  - key: milton2012
+    type: article
+    authors: Milton, D. E. M.
+    year: 2012
+    title: "On the ontological status of autism: The 'double empathy problem'"
+    container: Disability & Society
+    volume: 27
+    issue: 6
+    pages: 883-887
+    doi: 10.1080/09687599.2012.710008
+    supports: Social-communication differences framed as two-way mismatch; informs neutral wording of SOC items.
+
+  # ---------------------------------------------------------------- psychometrics & methods
+  - key: aera2014
+    type: book
+    authors: American Educational Research Association, American Psychological Association, & National Council on Measurement in Education
+    year: 2014
+    title: Standards for educational and psychological testing
+    publisher: American Educational Research Association
+    supports: Overall validity framework (content, response process, internal structure, relations to other variables, consequences).
+
+  - key: clark1995
+    type: article
+    authors: Clark, L. A., & Watson, D.
+    year: 1995
+    title: "Constructing validity: Basic issues in objective scale development"
+    container: Psychological Assessment
+    volume: 7
+    issue: 3
+    pages: 309-319
+    doi: 10.1037/1040-3590.7.3.309
+    supports: Item-pool construction, over-inclusive initial pools, item wording rules.
+
+  - key: clark2019
+    type: article
+    authors: Clark, L. A., & Watson, D.
+    year: 2019
+    title: "Constructing validity: New developments in creating objective measuring instruments"
+    container: Psychological Assessment
+    volume: 31
+    issue: 12
+    pages: 1412-1427
+    doi: 10.1037/pas0000626
+    supports: Updated scale-development workflow used in the iteration roadmap.
+
+  - key: boateng2018
+    type: article
+    authors: Boateng, G. O., Neilands, T. B., Frongillo, E. A., Melgar-Quiñonez, H. R., & Young, S. L.
+    year: 2018
+    title: "Best practices for developing and validating scales for health, social, and behavioral research: A primer"
+    container: Frontiers in Public Health
+    volume: 6
+    pages: "149"
+    doi: 10.3389/fpubh.2018.00149
+    supports: Three-phase scale development (item development, scale development, scale evaluation); sample-size guidance.
+
+  - key: devellis2021
+    type: book
+    authors: DeVellis, R. F., & Thorpe, C. T.
+    year: 2021
+    title: "Scale development: Theory and applications (5th ed.)"
+    publisher: SAGE
+    supports: Item writing, reverse-keyed items, reliability.
+
+  - key: lynn1986
+    type: article
+    authors: Lynn, M. R.
+    year: 1986
+    title: Determination and quantification of content validity
+    container: Nursing Research
+    volume: 35
+    issue: 6
+    pages: 382-386
+    doi: 10.1097/00006199-198611000-00017
+    supports: Expert-panel content validity index (I-CVI) procedure and thresholds.
+
+  - key: polit2006
+    type: article
+    authors: Polit, D. F., & Beck, C. T.
+    year: 2006
+    title: "The content validity index: Are you sure you know what's being reported? Critique and recommendations"
+    container: Research in Nursing & Health
+    volume: 29
+    issue: 5
+    pages: 489-497
+    doi: 10.1002/nur.20147
+    supports: I-CVI >= .78 and S-CVI/Ave >= .90 acceptance criteria.
+
+  - key: willis2005
+    type: book
+    authors: Willis, G. B.
+    year: 2005
+    title: "Cognitive interviewing: A tool for improving questionnaire design"
+    publisher: SAGE
+    doi: 10.4135/9781412983655
+    supports: Think-aloud / verbal-probing protocol for the response-process stage.
+
+  - key: mokkink2010
+    type: article
+    authors: Mokkink, L. B., Terwee, C. B., Patrick, D. L., Alonso, J., Stratford, P. W., Knol, D. L., Bouter, L. M., & de Vet, H. C. W.
+    year: 2010
+    title: The COSMIN study reached international consensus on taxonomy, terminology, and definitions of measurement properties for health-related patient-reported outcomes
+    container: Journal of Clinical Epidemiology
+    volume: 63
+    issue: 7
+    pages: 737-745
+    doi: 10.1016/j.jclinepi.2010.02.006
+    supports: Measurement-property taxonomy (reliability, validity, responsiveness) used in the validation roadmap.
+
+  - key: weijters2012
+    type: article
+    authors: Weijters, B., & Baumgartner, H.
+    year: 2012
+    title: "Misresponse to reversed and negated items in surveys: A review"
+    container: Journal of Marketing Research
+    volume: 49
+    issue: 5
+    pages: 737-747
+    doi: 10.1509/jmr.11.0368
+    supports: Use reverse-keyed items but avoid negations ("not", "never") in them.
+
+  - key: preston2000
+    type: article
+    authors: Preston, C. C., & Colman, A. M.
+    year: 2000
+    title: "Optimal number of response categories in rating scales: Reliability, validity, discriminating power, and respondent preferences"
+    container: Acta Psychologica
+    volume: 104
+    issue: 1
+    pages: 1-15
+    doi: 10.1016/S0001-6918(99)00050-5
+    supports: Choice of a 5-point labelled response scale (v0) and the case for testing 7 points.
+
+  - key: meade2012
+    type: article
+    authors: Meade, A. W., & Craig, S. B.
+    year: 2012
+    title: Identifying careless responses in survey data
+    container: Psychological Methods
+    volume: 17
+    issue: 3
+    pages: 437-455
+    doi: 10.1037/a0028085
+    supports: Instructed-response (attention-check) items and consistency indices.
+
+  - key: curran2016
+    type: article
+    authors: Curran, P. G.
+    year: 2016
+    title: Methods for the detection of carelessly invalid responses in survey data
+    container: Journal of Experimental Social Psychology
+    volume: 66
+    pages: 4-19
+    doi: 10.1016/j.jesp.2015.07.006
+    supports: Long-string (straight-lining) index and response-time screening.
+
+  - key: huang2012
+    type: article
+    authors: Huang, J. L., Curran, P. G., Keeney, J., Poposki, E. M., & DeShon, R. P.
+    year: 2012
+    title: Detecting and deterring insufficient effort responding to surveys
+    container: Journal of Business and Psychology
+    volume: 27
+    issue: 1
+    pages: 99-114
+    doi: 10.1007/s10869-011-9231-8
+    supports: Response-time cut-off of roughly 2 seconds per item for insufficient-effort responding.
+
+  - key: cronbach1951
+    type: article
+    authors: Cronbach, L. J.
+    year: 1951
+    title: Coefficient alpha and the internal structure of tests
+    container: Psychometrika
+    volume: 16
+    issue: 3
+    pages: 297-334
+    doi: 10.1007/BF02310555
+    supports: Internal-consistency reliability computed by scripts/analyze-responses.ts.
+
+  - key: mcneish2018
+    type: article
+    authors: McNeish, D.
+    year: 2018
+    title: "Thanks coefficient alpha, we'll take it from here"
+    container: Psychological Methods
+    volume: 23
+    issue: 3
+    pages: 412-433
+    doi: 10.1037/met0000144
+    supports: Report McDonald's omega alongside alpha once factor models are fitted.
+
+  - key: haslam2012
+    type: article
+    authors: Haslam, N., Holland, E., & Kuppens, P.
+    year: 2012
+    title: "Categories versus dimensions in personality and psychopathology: A quantitative review of taxometric research"
+    container: Psychological Medicine
+    volume: 42
+    issue: 5
+    pages: 903-920
+    doi: 10.1017/S0033291711001966
+    supports: Most psychological traits are dimensional, so types are reported as probabilistic prototypes over continuous scores.
+
+  - key: haslam2020
+    type: article
+    authors: Haslam, N., McGrath, M. J., Viechtbauer, W., & Kuppens, P.
+    year: 2020
+    title: "Dimensions over categories: A meta-analysis of taxometric research"
+    container: Psychological Medicine
+    volume: 50
+    issue: 9
+    pages: 1418-1432
+    doi: 10.1017/S003329172000183X
+    supports: Meta-analysis confirming that most latent variables in psychopathology, including autism and ADHD traits, are dimensional.
+
+  - key: pittenger2005
+    type: article
+    authors: Pittenger, D. J.
+    year: 2005
+    title: Cautionary comments regarding the Myers-Briggs Type Indicator
+    container: "Consulting Psychology Journal: Practice and Research"
+    volume: 57
+    issue: 3
+    pages: 210-221
+    doi: 10.1037/1065-9293.57.3.210
+    supports: Known weaknesses of hard-dichotomy typing (MBTI); reason for soft, confidence-rated classification.
+
+  - key: spurk2020
+    type: article
+    authors: Spurk, D., Hirschi, A., Wang, M., Valero, D., & Kauffeld, S.
+    year: 2020
+    title: "Latent profile analysis: A review and \"how to\" guide of its application within vocational behavior research"
+    container: Journal of Vocational Behavior
+    volume: 120
+    pages: "103445"
+    doi: 10.1016/j.jvb.2020.103445
+    supports: Planned data-driven derivation of type prototypes from pilot data.
+
+  # ---------------------------------------------------------------- ADHD
+  - key: kessler2005
+    type: article
+    authors: Kessler, R. C., Adler, L., Ames, M., Demler, O., Faraone, S., Hiripi, E., Howes, M. J., Jin, R., Secnik, K., Spencer, T., Ustun, T. B., & Walters, E. E.
+    year: 2005
+    title: "The World Health Organization Adult ADHD Self-Report Scale (ASRS): A short screening scale for use in the general population"
+    container: Psychological Medicine
+    volume: 35
+    issue: 2
+    pages: 245-256
+    doi: 10.1017/S0033291704002892
+    supports: Adult expressions of inattention and hyperactivity-impulsivity; convergent-validity instrument for ATT/IMP.
+
+  - key: barkley1997
+    type: article
+    authors: Barkley, R. A.
+    year: 1997
+    title: "Behavioral inhibition, sustained attention, and executive functions: Constructing a unifying theory of ADHD"
+    container: Psychological Bulletin
+    volume: 121
+    issue: 1
+    pages: 65-94
+    doi: 10.1037/0033-2909.121.1.65
+    supports: Executive-function model of ADHD (inhibition, time management, self-organisation).
+
+  - key: barkley2011
+    type: book
+    authors: Barkley, R. A.
+    year: 2011
+    title: Barkley Deficits in Executive Functioning Scale (BDEFS)
+    publisher: Guilford Press
+    supports: Adult daily-life executive-function facets (time management, organisation, self-restraint); convergent instrument for EXF.
+
+  - key: seli2015
+    type: article
+    authors: Seli, P., Smallwood, J., Cheyne, J. A., & Smilek, D.
+    year: 2015
+    title: On the relation of mind wandering and ADHD symptomatology
+    container: Psychonomic Bulletin & Review
+    volume: 22
+    issue: 3
+    pages: 629-636
+    doi: 10.3758/s13423-014-0793-0
+    supports: Spontaneous mind-wandering is elevated with ADHD symptoms (ATT-01, ATT-03).
+
+  - key: noreika2013
+    type: article
+    authors: Noreika, V., Falter, C. M., & Rubia, K.
+    year: 2013
+    title: "Timing deficits in attention-deficit/hyperactivity disorder (ADHD): Evidence from neurocognitive and neuroimaging studies"
+    container: Neuropsychologia
+    volume: 51
+    issue: 2
+    pages: 235-266
+    doi: 10.1016/j.neuropsychologia.2012.09.036
+    supports: Time-estimation differences in ADHD (EXF-01).
+
+  - key: niermann2014
+    type: article
+    authors: Niermann, H. C. M., & Scheres, A.
+    year: 2014
+    title: The relation between procrastination and symptoms of attention-deficit hyperactivity disorder (ADHD) in undergraduate students
+    container: International Journal of Methods in Psychiatric Research
+    volume: 23
+    issue: 4
+    pages: 411-421
+    doi: 10.1002/mpr.1440
+    supports: Procrastination / task-initiation difficulty is linked to inattention (EXF-02).
+
+  - key: sarver2015
+    type: article
+    authors: Sarver, D. E., Rapport, M. D., Kofler, M. J., Raiker, J. S., & Friedman, L. M.
+    year: 2015
+    title: "Hyperactivity in attention-deficit/hyperactivity disorder (ADHD): Impairing deficit or compensatory behavior?"
+    container: Journal of Abnormal Child Psychology
+    volume: 43
+    issue: 7
+    pages: 1219-1232
+    doi: 10.1007/s10802-015-0011-1
+    supports: Movement is associated with better working-memory performance in ADHD (movement preference item).
+
+  - key: kofler2013
+    type: article
+    authors: Kofler, M. J., Rapport, M. D., Sarver, D. E., Raiker, J. S., Orban, S. A., Friedman, L. M., & Kolomeyer, E. G.
+    year: 2013
+    title: "Reaction time variability in ADHD: A meta-analytic review of 319 studies"
+    container: Clinical Psychology Review
+    volume: 33
+    issue: 6
+    pages: 795-811
+    doi: 10.1016/j.cpr.2013.06.001
+    supports: Reaction-time variability (rt_cv) as a robust attention marker in the Go/No-Go task.
+
+  - key: wright2014
+    type: article
+    authors: Wright, L., Lipszyc, J., Dupuis, A., Thayapararajah, S. W., & Schachar, R.
+    year: 2014
+    title: "Response inhibition and psychopathology: A meta-analysis of go/no-go task performance"
+    container: Journal of Abnormal Psychology
+    volume: 123
+    issue: 2
+    pages: 429-439
+    doi: 10.1037/a0036295
+    supports: Go/No-Go commission errors as an index of response inhibition.
+
+  - key: soderlund2007
+    type: article
+    authors: Söderlund, G., Sikström, S., & Smart, A.
+    year: 2007
+    title: "Listen to the noise: Noise is beneficial for cognitive performance in ADHD"
+    container: Journal of Child Psychology and Psychiatry
+    volume: 48
+    issue: 8
+    pages: 840-847
+    doi: 10.1111/j.1469-7610.2007.01749.x
+    supports: Background noise can improve performance in ADHD (sound-environment preference item).
+
+  - key: sikstrom2007
+    type: article
+    authors: Sikström, S., & Söderlund, G.
+    year: 2007
+    title: Stimulus-dependent dopamine release in attention-deficit/hyperactivity disorder
+    container: Psychological Review
+    volume: 114
+    issue: 4
+    pages: 1047-1075
+    doi: 10.1037/0033-295X.114.4.1047
+    supports: Moderate brain arousal model, the theory behind stimulation-seeking preferences.
+
+  - key: kooij2014
+    type: article
+    authors: Kooij, J. J. S., & Bijlenga, D.
+    year: 2014
+    title: High prevalence of self-reported photophobia in adult ADHD
+    container: Frontiers in Neurology
+    volume: 5
+    pages: "256"
+    doi: 10.3389/fneur.2014.00256
+    supports: Light sensitivity is common in adult ADHD (lighting preference item, SEN-03).
+
+  - key: bijlenga2017
+    type: article
+    authors: Bijlenga, D., Tjon-Ka-Jie, J. Y. M., Schuijers, F., & Kooij, J. J. S.
+    year: 2017
+    title: Atypical sensory profiles as core features of adult ADHD, irrespective of autistic symptoms
+    container: European Psychiatry
+    volume: 43
+    pages: 51-57
+    doi: 10.1016/j.eurpsy.2017.02.481
+    supports: Sensory sensitivity is elevated in adult ADHD, not only in autism (SEN as a cross-cutting dimension).
+
+  - key: panagiotidi2018
+    type: article
+    authors: Panagiotidi, M., Overton, P. G., & Stafford, T.
+    year: 2018
+    title: The relationship between ADHD traits and sensory sensitivity in the general population
+    container: Comprehensive Psychiatry
+    volume: 80
+    pages: 179-185
+    doi: 10.1016/j.comppsych.2017.10.008
+    supports: Dimensional link between ADHD traits and sensory sensitivity in non-clinical adults.
+
+  - key: coogan2017
+    type: article
+    authors: Coogan, A. N., & McGowan, N. M.
+    year: 2017
+    title: A systematic review of circadian function, chronotype and chronotherapy in attention deficit hyperactivity disorder
+    container: ADHD Attention Deficit and Hyperactivity Disorders
+    volume: 9
+    issue: 3
+    pages: 129-147
+    doi: 10.1007/s12402-016-0214-5
+    supports: Evening chronotype is more common in ADHD (daily-rhythm preference item; descriptive in v0).
+
+  - key: sedgwick2019
+    type: article
+    authors: Sedgwick, J. A., Merwood, A., & Asherson, P.
+    year: 2019
+    title: "The positive aspects of attention deficit hyperactivity disorder: A qualitative investigation of successful adults with ADHD"
+    container: ADHD Attention Deficit and Hyperactivity Disorders
+    volume: 11
+    issue: 3
+    pages: 241-253
+    doi: 10.1007/s12402-018-0277-6
+    supports: Self-reported strengths (energy, divergent thinking, hyperfocus) in the Spark and Daydreamer type texts.
+
+  - key: ashinoff2021
+    type: article
+    authors: Ashinoff, B. K., & Abu-Akel, A.
+    year: 2021
+    title: "Hyperfocus: The forgotten frontier of attention"
+    container: Psychological Research
+    volume: 85
+    issue: 1
+    pages: 1-19
+    doi: 10.1007/s00426-019-01245-8
+    supports: Hyperfocus in ADHD and autism; caveat that evidence is still limited.
+
+  # ---------------------------------------------------------------- autism
+  - key: baroncohen2001
+    type: article
+    authors: Baron-Cohen, S., Wheelwright, S., Skinner, R., Martin, J., & Clubley, E.
+    year: 2001
+    title: "The autism-spectrum quotient (AQ): Evidence from Asperger syndrome/high-functioning autism, males and females, scientists and mathematicians"
+    container: Journal of Autism and Developmental Disorders
+    volume: 31
+    issue: 1
+    pages: 5-17
+    doi: 10.1023/A:1005653411471
+    supports: Dimensional autistic traits in adults (social skill, attention switching, attention to detail, communication, imagination); convergent instrument for SOC/RTN.
+
+  - key: allison2012
+    type: article
+    authors: Allison, C., Auyeung, B., & Baron-Cohen, S.
+    year: 2012
+    title: "Toward brief \"red flags\" for autism screening: The short Autism Spectrum Quotient and the short Quantitative Checklist in 1,000 cases and 3,000 controls"
+    container: Journal of the American Academy of Child & Adolescent Psychiatry
+    volume: 51
+    issue: 2
+    pages: 202-212.e7
+    doi: 10.1016/j.jaac.2011.11.003
+    supports: AQ-10 as a brief convergent-validity measure in the pilot plan.
+
+  - key: hull2019
+    type: article
+    authors: Hull, L., Mandy, W., Lai, M.-C., Baron-Cohen, S., Allison, C., Smith, P., & Petrides, K. V.
+    year: 2019
+    title: Development and validation of the Camouflaging Autistic Traits Questionnaire (CAT-Q)
+    container: Journal of Autism and Developmental Disorders
+    volume: 49
+    issue: 3
+    pages: 819-833
+    doi: 10.1007/s10803-018-3792-6
+    supports: Social scripting/rehearsal as a camouflaging strategy (SOC-04).
+
+  - key: lai2017
+    type: article
+    authors: Lai, M.-C., Lombardo, M. V., Ruigrok, A. N. V., Chakrabarti, B., Auyeung, B., Szatmari, P., Happé, F., Baron-Cohen, S., & MRC AIMS Consortium
+    year: 2017
+    title: Quantifying and exploring camouflaging in men and women with autism
+    container: Autism
+    volume: 21
+    issue: 6
+    pages: 690-702
+    doi: 10.1177/1362361316671012
+    supports: Camouflaging can mask autistic traits in self-report, especially in women (limitation noted in the Navigator text).
+
+  - key: happe1994
+    type: article
+    authors: Happé, F. G. E.
+    year: 1994
+    title: "An advanced test of theory of mind: Understanding of story characters' thoughts and feelings by able autistic, mentally handicapped, and normal children and adults"
+    container: Journal of Autism and Developmental Disorders
+    volume: 24
+    issue: 2
+    pages: 129-154
+    doi: 10.1007/BF02172093
+    supports: Understanding non-literal language such as sarcasm and jokes (SOC-01).
+
+  - key: uljarevic2013
+    type: article
+    authors: Uljarevic, M., & Hamilton, A.
+    year: 2013
+    title: "Recognition of emotions in autism: A formal meta-analysis"
+    container: Journal of Autism and Developmental Disorders
+    volume: 43
+    issue: 7
+    pages: 1517-1526
+    doi: 10.1007/s10803-012-1695-5
+    supports: Differences in recognising emotion from faces and voices (SOC-05).
+
+  - key: hill2004
+    type: article
+    authors: Hill, E. L.
+    year: 2004
+    title: Executive dysfunction in autism
+    container: Trends in Cognitive Sciences
+    volume: 8
+    issue: 1
+    pages: 26-32
+    doi: 10.1016/j.tics.2003.11.003
+    supports: Executive-function differences in autism (EXF moderate in the Deep Diver prototype).
+
+  - key: bensasson2009
+    type: article
+    authors: Ben-Sasson, A., Hen, L., Fluss, R., Cermak, S. A., Engel-Yeger, B., & Gal, E.
+    year: 2009
+    title: A meta-analysis of sensory modulation symptoms in individuals with autism spectrum disorders
+    container: Journal of Autism and Developmental Disorders
+    volume: 39
+    issue: 1
+    pages: 1-11
+    doi: 10.1007/s10803-008-0593-3
+    supports: Sensory over-responsivity is markedly elevated in autism (SEN).
+
+  - key: robertson2013
+    type: article
+    authors: Robertson, A. E., & Simmons, D. R.
+    year: 2013
+    title: The relationship between sensory sensitivity and autistic traits in the general population
+    container: Journal of Autism and Developmental Disorders
+    volume: 43
+    issue: 4
+    pages: 775-784
+    doi: 10.1007/s10803-012-1608-7
+    supports: Glasgow Sensory Questionnaire; multi-modality sensory items (sound, light, touch, smell) correlate with autistic traits.
+
+  - key: tavassoli2014
+    type: article
+    authors: Tavassoli, T., Hoekstra, R. A., & Baron-Cohen, S.
+    year: 2014
+    title: "The Sensory Perception Quotient (SPQ): Development and validation of a new sensory questionnaire for adults with and without autism"
+    container: Molecular Autism
+    volume: 5
+    pages: "29"
+    doi: 10.1186/2040-2392-5-29
+    supports: Adult sensory hypersensitivity across modalities; convergent instrument for SEN.
+
+  - key: williams2021
+    type: article
+    authors: Williams, Z. J., Suzman, E., & Woynaroski, T. G.
+    year: 2021
+    title: "Prevalence of decreased sound tolerance (hyperacusis) in individuals with autism spectrum disorder: A meta-analysis"
+    container: Ear and Hearing
+    volume: 42
+    issue: 5
+    pages: 1137-1150
+    doi: 10.1097/AUD.0000000000001005
+    supports: Decreased sound tolerance is common in autism (SEN-01, SEN-06, sound preference item).
+
+  - key: simmons2009
+    type: article
+    authors: Simmons, D. R., Robertson, A. E., McKay, L. S., Toal, E., McAleer, P., & Pollick, F. E.
+    year: 2009
+    title: Vision in autism spectrum disorders
+    container: Vision Research
+    volume: 49
+    issue: 22
+    pages: 2705-2739
+    doi: 10.1016/j.visres.2009.08.005
+    supports: Visual sensitivity, including to bright or flickering light (SEN-03, lighting preference item).
+
+  - key: cascio2008
+    type: article
+    authors: Cascio, C., McGlone, F., Folger, S., Tannan, V., Baranek, G., Pelphrey, K. A., & Essick, G.
+    year: 2008
+    title: "Tactile perception in adults with autism: A multidimensional psychophysical study"
+    container: Journal of Autism and Developmental Disorders
+    volume: 38
+    issue: 1
+    pages: 127-137
+    doi: 10.1007/s10803-007-0370-8
+    supports: Heightened tactile and thermal-pain sensitivity in autistic adults (temperature item, SEN-02).
+
+  - key: cermak2010
+    type: article
+    authors: Cermak, S. A., Curtin, C., & Bandini, L. G.
+    year: 2010
+    title: Food selectivity and sensory sensitivity in children with autism spectrum disorders
+    container: Journal of the American Dietetic Association
+    volume: 110
+    issue: 2
+    pages: 238-246
+    doi: 10.1016/j.jada.2009.10.032
+    supports: Texture-driven food selectivity linked to sensory sensitivity (food-texture item).
+
+  - key: kinnaird2019
+    type: article
+    authors: Kinnaird, E., Norton, C., Pimblett, C., Stewart, C., & Tchanturia, K.
+    year: 2019
+    title: "Eating as an autistic adult: An exploratory qualitative study"
+    container: PLOS ONE
+    volume: 14
+    issue: 8
+    pages: e0221937
+    doi: 10.1371/journal.pone.0221937
+    supports: Autistic adults describe sensory (texture) reasons for food avoidance (food-texture item).
+
+  - key: russell2019
+    type: article
+    authors: Russell, G., Kapp, S. K., Elliott, D., Elphick, C., Gwernan-Jones, R., & Owens, C.
+    year: 2019
+    title: "Mapping the autistic advantage from the accounts of adults diagnosed with autism: A qualitative study"
+    container: Autism in Adulthood
+    volume: 1
+    issue: 2
+    pages: 124-133
+    doi: 10.1089/aut.2018.0035
+    supports: Self-reported autistic strengths (focus, attention to detail, honesty) in the Deep Diver type text.
+
+  - key: rong2021
+    type: article
+    authors: Rong, Y., Yang, C.-J., Jin, Y., & Wang, Y.
+    year: 2021
+    title: "Prevalence of attention-deficit/hyperactivity disorder in individuals with autism spectrum disorder: A meta-analysis"
+    container: Research in Autism Spectrum Disorders
+    volume: 83
+    pages: "101759"
+    doi: 10.1016/j.rasd.2021.101759
+    supports: High co-occurrence of ADHD in autism; basis for the Kaleidoscope (AuDHD) prototype.
+
+  # ---------------------------------------------------------------- sensory processing (general)
+  - key: dunn1997
+    type: article
+    authors: Dunn, W.
+    year: 1997
+    title: "The impact of sensory processing abilities on the daily lives of young children and their families: A conceptual model"
+    container: Infants & Young Children
+    volume: 9
+    issue: 4
+    pages: 23-35
+    doi: 10.1097/00001163-199704000-00005
+    supports: Sensory processing model (thresholds x self-regulation) behind the SEN dimension.
+
+  - key: brown2002
+    type: book
+    authors: Brown, C., & Dunn, W.
+    year: 2002
+    title: "Adolescent/Adult Sensory Profile: User's manual"
+    publisher: Psychological Corporation
+    supports: Adult sensory sensitivity and sensation avoiding quadrants; convergent instrument for SEN.
+
+  - key: aron1997
+    type: article
+    authors: Aron, E. N., & Aron, A.
+    year: 1997
+    title: Sensory-processing sensitivity and its relation to introversion and emotionality
+    container: Journal of Personality and Social Psychology
+    volume: 73
+    issue: 2
+    pages: 345-368
+    doi: 10.1037/0022-3514.73.2.345
+    supports: Sensory-processing sensitivity as a trait outside diagnostic categories (the Tuner type).
+
+  # ---------------------------------------------------------------- dyslexia
+  - key: lefly2000
+    type: article
+    authors: Lefly, D. L., & Pennington, B. F.
+    year: 2000
+    title: Reliability and validity of the Adult Reading History Questionnaire
+    container: Journal of Learning Disabilities
+    volume: 33
+    issue: 3
+    pages: 286-296
+    doi: 10.1177/002221940003300306
+    supports: Adult self-report of reading and spelling difficulty is a valid dyslexia indicator; convergent instrument for LIT.
+
+  - key: vellutino2004
+    type: article
+    authors: Vellutino, F. R., Fletcher, J. M., Snowling, M. J., & Scanlon, D. M.
+    year: 2004
+    title: "Specific reading disability (dyslexia): What have we learned in the past four decades?"
+    container: Journal of Child Psychology and Psychiatry
+    volume: 45
+    issue: 1
+    pages: 2-40
+    doi: 10.1046/j.0021-9630.2003.00305.x
+    supports: Phonological decoding as the core deficit; letter-reversal errors are not specific to dyslexia (LIT-03 caveat).
+
+  - key: peterson2012
+    type: article
+    authors: Peterson, R. L., & Pennington, B. F.
+    year: 2012
+    title: Developmental dyslexia
+    container: The Lancet
+    volume: 379
+    issue: 9830
+    pages: 1997-2007
+    doi: 10.1016/S0140-6736(12)60198-6
+    supports: Slow, effortful reading and poor spelling persist into adulthood (LIT-01, LIT-02).
+
+  - key: taylor2022
+    type: article
+    authors: Taylor, H., & Vestergaard, M. D.
+    year: 2022
+    title: "Developmental dyslexia: Disorder or specialization in exploration?"
+    container: Frontiers in Psychology
+    volume: 13
+    pages: "889245"
+    doi: 10.3389/fpsyg.2022.889245
+    supports: Hypothesised exploration and big-picture strengths in dyslexia (Storyteller type text; marked as hypothesis).
+
+  # ---------------------------------------------------------------- dyscalculia
+  - key: butterworth2005
+    type: article
+    authors: Butterworth, B.
+    year: 2005
+    title: The development of arithmetical abilities
+    container: Journal of Child Psychology and Psychiatry
+    volume: 46
+    issue: 1
+    pages: 3-18
+    doi: 10.1111/j.1469-7610.2004.00374.x
+    supports: Core number-sense deficit model of dyscalculia.
+
+  - key: butterworth2011
+    type: article
+    authors: Butterworth, B., Varma, S., & Laurillard, D.
+    year: 2011
+    title: "Dyscalculia: From brain to education"
+    container: Science
+    volume: 332
+    issue: 6033
+    pages: 1049-1053
+    doi: 10.1126/science.1201536
+    supports: Difficulties with magnitude comparison, number facts and calculation (NUM).
+
+  - key: piazza2010
+    type: article
+    authors: Piazza, M., Facoetti, A., Trussardi, A. N., Berteletti, I., Conte, S., Lucangeli, D., Dehaene, S., & Zorzi, M.
+    year: 2010
+    title: Developmental trajectory of number acuity reveals a severe impairment in developmental dyscalculia
+    container: Cognition
+    volume: 116
+    issue: 1
+    pages: 33-41
+    doi: 10.1016/j.cognition.2010.03.012
+    supports: Impaired approximate number acuity (NUM-02, NUM-05).
+
+  - key: schleifer2011
+    type: article
+    authors: Schleifer, P., & Landerl, K.
+    year: 2011
+    title: Subitizing and counting in typical and atypical development
+    container: Developmental Science
+    volume: 14
+    issue: 2
+    pages: 280-291
+    doi: 10.1111/j.1467-7687.2010.00976.x
+    supports: Slower subitizing of small sets in dyscalculia (NUM-02).
+
+  - key: landerl2010
+    type: article
+    authors: Landerl, K., & Moll, K.
+    year: 2010
+    title: "Comorbidity of learning disorders: Prevalence and familial transmission"
+    container: Journal of Child Psychology and Psychiatry
+    volume: 51
+    issue: 3
+    pages: 287-294
+    doi: 10.1111/j.1469-7610.2009.02164.x
+    supports: Reading and arithmetic difficulties often co-occur (moderate NUM/LIT expectations in Storyteller and Wordsmith).
+
+  # ---------------------------------------------------------------- dyspraxia / DCD
+  - key: kirby2010
+    type: article
+    authors: Kirby, A., Edwards, L., Sugden, D., & Rosenblum, S.
+    year: 2010
+    title: The development and standardization of the Adult Developmental Co-ordination Disorders/Dyspraxia Checklist (ADC)
+    container: Research in Developmental Disabilities
+    volume: 31
+    issue: 1
+    pages: 131-139
+    doi: 10.1016/j.ridd.2009.08.010
+    supports: Adult self-report of motor coordination, handwriting and organisation difficulties; convergent instrument for MOT.
+
+  - key: blank2019
+    type: article
+    authors: Blank, R., Barnett, A. L., Cairney, J., Green, D., Kirby, A., Polatajko, H., Rosenblum, S., Smits-Engelsman, B., Sugden, D., Wilson, P., & Vinçon, S.
+    year: 2019
+    title: International clinical practice recommendations on the definition, diagnosis, assessment, intervention, and psychosocial aspects of developmental coordination disorder
+    container: Developmental Medicine & Child Neurology
+    volume: 61
+    issue: 3
+    pages: 242-285
+    doi: 10.1111/dmcn.14132
+    supports: DCD definition and everyday manifestations (clumsiness, handwriting, motor learning, ADLs).
+
+  # ---------------------------------------------------------------- accessibility
+  - key: wcag22
+    type: web
+    authors: World Wide Web Consortium
+    year: 2023
+    title: Web Content Accessibility Guidelines (WCAG) 2.2
+    url: https://www.w3.org/TR/WCAG22/
+    supports: Accessibility requirements for the frontend (contrast, keyboard use, no time pressure except the optional task).

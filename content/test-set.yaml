@@ -1,0 +1,1090 @@
+# =============================================================================
+#  TEST SET: dimensions, items, attention checks and behavioural tasks
+# =============================================================================
+#  Single source of truth for WHAT is asked. The frontend reads this file at
+#  build time. Scripts in /scripts validate it against the rules in
+#  docs/01-question-bank-design-guidelines.md.
+#
+#  Rules of thumb (the full rules are in the guidelines doc):
+#   - Item IDs never change and are never reused. Retire an item with
+#     `status: retired`; don't delete it.
+#   - Any change to item text, keying or dimension needs a version bump and
+#     a changelog entry.
+#   - `keyed: reverse` means agreeing shows LESS of the dimension.
+#   - Every item carries `evidence` (level + refs into content/references.yaml).
+#     The level sets the scoring weight (scoring.yaml -> evidence_weights).
+#     `exploratory` items are collected and shown but not scored.
+# =============================================================================
+
+meta:
+  id: nd-trait-profile
+  title: Neurodiversity Trait Profile
+  version: 0.1.0
+  status: draft            # draft -> pilot -> validated
+  language: en
+  min_age: 16
+  estimated_minutes: 12
+  guidelines_version: 0.1.0
+  changelog:
+    - version: 0.1.0
+      date: 2026-11-27
+      summary: >
+        Initial v0 item pool. Part 1: 9 trait dimensions x 6 items. Part 2:
+        8 everyday-preference items (light, sound, temperature, humidity, food
+        texture, movement, daily rhythm, workspace). Plus 2 attention checks and
+        1 optional Go/No-Go task. Every item has an evidence level and
+        citations. All items are original drafts and have not been through
+        expert review or piloting yet.
+
+presentation:
+  items_per_page: 6
+  shuffle_seed: 20261127   # fixed seed so every respondent sees the same order
+  allow_back: true
+  allow_skip_item: false
+
+sections:
+  - id: traits
+    title: How you usually think, feel and act
+    intro: >
+      Rate how much you agree with each statement. There are no right or wrong
+      answers. Go with your first instinct.
+    order: interleaved       # interleaved | as_listed
+    attention_checks: true
+  - id: preferences
+    title: Your everyday comfort zone
+    intro: >
+      Now some questions about the environments you feel best in: light,
+      sound, temperature and more. These also feed your "comfort zone" panel
+      in the report.
+    order: as_listed
+    attention_checks: false
+
+response_scale:
+  type: likert
+  points: 5
+  values: [0, 1, 2, 3, 4]
+  labels:
+    - Strongly disagree
+    - Disagree
+    - Neutral
+    - Agree
+    - Strongly agree
+  instruction: >
+    Think about how you usually are across most of your adult life (or the last
+    6 months if things have changed a lot), not just today.
+
+# -----------------------------------------------------------------------------
+#  DIMENSIONS: the traits we measure. High scores = more of the trait.
+#  `associated_with` is for information only. A dimension score is never a
+#  diagnosis.
+# -----------------------------------------------------------------------------
+dimensions:
+  - id: ATT
+    name: Attention Drift
+    short: How easily attention wanders from what you intend to focus on.
+    construct: >
+      Difficulty sustaining voluntary attention and resisting distraction in
+      everyday tasks, conversations and media.
+    high_pole: Attention drifts easily and often
+    low_pole: Attention stays put with little effort
+    associated_with: [ADHD]
+    refs: [apa2022, kessler2005, seli2015, sedgwick2019]
+    strengths:
+      - Notices new things in the environment quickly
+      - Can switch between ideas rapidly
+    challenges:
+      - Losing the thread in long meetings or lectures
+      - Small mistakes from missed details
+
+  - id: IMP
+    name: Restless Energy
+    short: Physical/inner restlessness and acting before thinking.
+    construct: >
+      Motor and inner restlessness, plus impulsive responding (speaking, deciding
+      or acting before considering consequences).
+    high_pole: Restless, quick to act
+    low_pole: Settled, deliberate
+    associated_with: [ADHD]
+    refs: [apa2022, kessler2005, barkley1997, sedgwick2019]
+    strengths:
+      - Energy and spontaneity
+      - Quick to act in a crisis
+    challenges:
+      - Interrupting or blurting out
+      - Impulse decisions that are regretted later
+
+  - id: EXF
+    name: Executive Load
+    short: How much effort planning, time and organisation take.
+    construct: >
+      Day-to-day executive functioning: time estimation, task initiation,
+      organisation, planning and prospective memory.
+    high_pole: Planning and organising take a lot of effort
+    low_pole: Planning and organising come easily
+    associated_with: [ADHD, Autism, Dyspraxia]
+    refs: [barkley1997, barkley2011, hill2004, kirby2010]
+    strengths:
+      - Works brilliantly under deadline pressure
+      - Often creative when improvising
+    challenges:
+      - Time blindness and running late
+      - Starting tasks; misplacing things
+
+  - id: SOC
+    name: Social Decoding
+    short: How much conscious effort reading unspoken social cues takes.
+    construct: >
+      Effort needed to read implicit social communication (tone, sarcasm,
+      facial expression, unwritten rules), including scripting and directness.
+    high_pole: Social cues need conscious decoding
+    low_pole: Social cues are read intuitively
+    associated_with: [Autism]
+    refs: [apa2022, baroncohen2001, milton2012, hull2019, russell2019]
+    strengths:
+      - Direct, honest communication
+      - Loyal and not swayed by social pressure
+    challenges:
+      - Misreading sarcasm or hints
+      - Social situations are tiring
+
+  - id: SEN
+    name: Sensory Intensity
+    short: How strongly sound, light, touch and smell register.
+    construct: >
+      Heightened responsiveness to sensory input (auditory, visual, tactile,
+      olfactory) and susceptibility to sensory overload.
+    high_pole: Senses turned up high
+    low_pole: Senses at an everyday level
+    associated_with: [Autism, ADHD, Sensory processing differences]
+    refs: [dunn1997, bensasson2009, bijlenga2017, panagiotidi2018, robertson2013]
+    strengths:
+      - Notices subtle details others miss
+      - Rich appreciation of music, texture and colour
+    challenges:
+      - Overload in noisy, bright or crowded places
+      - Physical discomfort from certain fabrics or sounds
+
+  - id: RTN
+    name: Routine & Deep Focus
+    short: Preference for predictability and intense, focused interests.
+    construct: >
+      Preference for sameness and predictability, discomfort with unexpected
+      change, and intense, focused interests or detail-oriented perception.
+    high_pole: Loves predictability and deep dives
+    low_pole: Enjoys variety and spontaneity
+    associated_with: [Autism]
+    refs: [apa2022, baroncohen2001, russell2019]
+    strengths:
+      - Deep expertise in areas of interest
+      - Consistency and reliability
+    challenges:
+      - Sudden changes of plan are stressful
+      - Hard to switch away from an interest
+
+  - id: LIT
+    name: Word Decoding
+    short: How much effort reading and spelling take.
+    construct: >
+      Phonological and orthographic processing in everyday reading and
+      spelling: speed, accuracy, letter/word confusions and decoding new words.
+    high_pole: Reading and spelling take extra effort
+    low_pole: Reading and spelling are automatic
+    associated_with: [Dyslexia]
+    refs: [apa2022, vellutino2004, peterson2012, lefly2000, taylor2022]
+    strengths:
+      - Big-picture and narrative thinking
+      - Strong verbal reasoning and storytelling
+    challenges:
+      - Slow reading speed
+      - Spelling, even of familiar words
+
+  - id: NUM
+    name: Number Sense
+    short: How much effort numbers, quantities and arithmetic take.
+    construct: >
+      Everyday numerical processing: mental arithmetic, magnitude comparison,
+      quantity estimation, digit sequencing and number-fact retrieval.
+    high_pole: Numbers take extra effort
+    low_pole: Numbers feel intuitive
+    associated_with: [Dyscalculia]
+    refs: [apa2022, butterworth2005, butterworth2011]
+    strengths:
+      - Often builds practical workarounds and strategies
+      - Persistence from finding alternative routes
+    challenges:
+      - Mental arithmetic and handling money
+      - Reading clocks, timetables and numbers in sequence
+
+  - id: MOT
+    name: Motor Coordination
+    short: How much effort movement and fine motor tasks take.
+    construct: >
+      Gross and fine motor coordination in daily life: balance, spatial body
+      awareness, handwriting and learning new motor skills.
+    high_pole: Coordination takes extra effort
+    low_pole: Coordination is automatic
+    associated_with: [Dyspraxia / DCD]
+    refs: [apa2022, blank2019, kirby2010]
+    strengths:
+      - Often builds creative workarounds
+      - Persistence from finding alternative routes
+    challenges:
+      - Bumping into or dropping things
+      - Handwriting and fiddly tasks
+
+# -----------------------------------------------------------------------------
+#  ITEMS: one statement per item. See guidelines section 4 for writing rules.
+#  rationale: why this item measures the construct (traceability)
+#  facet:     the sub-aspect of the dimension covered (content coverage)
+# -----------------------------------------------------------------------------
+items:
+  # ---- ATT: Attention Drift -------------------------------------------------
+  - id: ATT-01
+    section: traits
+    dimension: ATT
+    text: My mind wanders off during conversations, even when I want to listen.
+    keyed: forward
+    facet: sustained auditory attention
+    evidence:
+      level: established
+      refs: [apa2022, seli2015, kessler2005]
+      basis: "DSM-5-TR ADHD A1(c): seems not to listen when spoken to; mind-wandering linked to ADHD symptoms"
+    rationale: Mind-wandering during social listening; everyday sustained-attention lapse.
+    status: draft
+  - id: ATT-02
+    section: traits
+    dimension: ATT
+    text: I make careless mistakes because I miss small details in instructions.
+    keyed: forward
+    facet: attention to detail
+    evidence:
+      level: established
+      refs: [apa2022, kessler2005]
+      basis: "DSM-5-TR ADHD A1(a): careless mistakes, overlooks details"
+    rationale: Lapses that produce detail errors; behavioural consequence of inattention.
+    status: draft
+  - id: ATT-03
+    section: traits
+    dimension: ATT
+    text: I lose the thread of a film or show because my thoughts drift elsewhere.
+    keyed: forward
+    facet: sustained attention (passive)
+    evidence:
+      level: established
+      refs: [apa2022, seli2015]
+      basis: "DSM-5-TR ADHD A1(b): difficulty sustaining attention, including in leisure activities"
+    rationale: Attention drift without task demands; avoids reading to prevent overlap with LIT.
+    status: draft
+  - id: ATT-04
+    section: traits
+    dimension: ATT
+    text: Movements or conversations nearby easily pull my focus away from a task.
+    keyed: forward
+    facet: distractibility
+    evidence:
+      level: established
+      refs: [apa2022, kessler2005]
+      basis: "DSM-5-TR ADHD A1(h): easily distracted by extraneous stimuli"
+    rationale: External distractibility; worded around focus (not discomfort) to separate from SEN.
+    status: draft
+  - id: ATT-05
+    section: traits
+    dimension: ATT
+    text: I can keep my attention on a dull task until it is finished.
+    keyed: reverse
+    facet: sustained attention (effortful)
+    evidence:
+      level: established
+      refs: [apa2022, kessler2005]
+      basis: "DSM-5-TR ADHD A1(b)/(f): sustaining effort on tasks that need sustained mental effort"
+    rationale: Reverse-keyed counterpart for sustained effortful attention.
+    status: draft
+  - id: ATT-06
+    section: traits
+    dimension: ATT
+    text: I find it easy to stay focused during long meetings or lectures.
+    keyed: reverse
+    facet: sustained auditory attention
+    evidence:
+      level: established
+      refs: [apa2022, kessler2005]
+      basis: "DSM-5-TR ADHD A1(b): sustaining attention during lectures, conversations or lengthy reading"
+    rationale: Reverse-keyed; paired with ATT-01 for the consistency check.
+    status: draft
+
+  # ---- IMP: Restless Energy -------------------------------------------------
+  - id: IMP-01
+    section: traits
+    dimension: IMP
+    text: I feel restless inside when I have to sit still for a long time.
+    keyed: forward
+    facet: inner restlessness
+    evidence:
+      level: established
+      refs: [apa2022, kessler2005]
+      basis: "DSM-5-TR ADHD A2(c): in adults may be limited to feeling restless"
+    rationale: Adult hyperactivity often shows as inner restlessness, not overt movement.
+    status: draft
+  - id: IMP-02
+    section: traits
+    dimension: IMP
+    text: I answer questions before the other person has finished asking them.
+    keyed: forward
+    facet: verbal impulsivity
+    evidence:
+      level: established
+      refs: [apa2022, kessler2005]
+      basis: "DSM-5-TR ADHD A2(g): blurts out an answer before a question has been completed"
+    rationale: Blurting out answers; observable impulsive responding.
+    status: draft
+  - id: IMP-03
+    section: traits
+    dimension: IMP
+    text: I buy things on impulse and regret it later.
+    keyed: forward
+    facet: decisional impulsivity
+    evidence:
+      level: emerging
+      refs: [barkley1997]
+      basis: "Impulsive decision-making follows from the behavioural-inhibition model of ADHD; not a DSM criterion, so weighted as emerging"
+    rationale: Impulsive decision-making with negative consequence.
+    status: draft
+  - id: IMP-04
+    section: traits
+    dimension: IMP
+    text: I fidget with my hands or feet when I am supposed to be still.
+    keyed: forward
+    facet: motor restlessness
+    evidence:
+      level: established
+      refs: [apa2022, kessler2005]
+      basis: "DSM-5-TR ADHD A2(a): fidgets with or taps hands or feet"
+    rationale: Overt motor restlessness.
+    status: draft
+  - id: IMP-05
+    section: traits
+    dimension: IMP
+    text: I find it easy to wait my turn, for example in a queue.
+    keyed: reverse
+    facet: waiting / delay tolerance
+    evidence:
+      level: established
+      refs: [apa2022, kessler2005]
+      basis: "DSM-5-TR ADHD A2(h): difficulty waiting their turn"
+    rationale: Reverse-keyed delay tolerance.
+    status: draft
+  - id: IMP-06
+    section: traits
+    dimension: IMP
+    text: I usually think through the consequences before I act.
+    keyed: reverse
+    facet: reflective control
+    evidence:
+      level: established
+      refs: [apa2022, barkley1997]
+      basis: "Behavioural inhibition as the core of ADHD impulsivity (DSM-5-TR A2; Barkley 1997)"
+    rationale: Reverse-keyed reflective responding.
+    status: draft
+
+  # ---- EXF: Executive Load --------------------------------------------------
+  - id: EXF-01
+    section: traits
+    dimension: EXF
+    text: I underestimate how long tasks will take and end up running late.
+    keyed: forward
+    facet: time management
+    evidence:
+      level: established
+      refs: [apa2022, noreika2013, barkley1997]
+      basis: "DSM-5-TR ADHD A1(e) lists poor time management; timing differences shown in neurocognitive studies"
+    rationale: Time-estimation difficulties ("time blindness").
+    status: draft
+  - id: EXF-02
+    section: traits
+    dimension: EXF
+    text: I put off starting important tasks, even when I want to start early.
+    keyed: forward
+    facet: task initiation
+    evidence:
+      level: established
+      refs: [apa2022, niermann2014]
+      basis: "DSM-5-TR ADHD A1(f): avoids or delays tasks needing sustained effort; procrastination linked to inattention"
+    rationale: Initiation difficulty that goes against the person's intention (not low motivation).
+    status: draft
+  - id: EXF-03
+    section: traits
+    dimension: EXF
+    text: I misplace everyday items such as my keys, phone or wallet.
+    keyed: forward
+    facet: organisation of belongings
+    evidence:
+      level: established
+      refs: [apa2022, kessler2005]
+      basis: "DSM-5-TR ADHD A1(g): loses things such as keys, wallet or phone"
+    rationale: Everyday organisation and working-memory lapse; examples illustrate one behaviour.
+    status: draft
+  - id: EXF-04
+    section: traits
+    dimension: EXF
+    text: Breaking a big project into smaller steps feels overwhelming to me.
+    keyed: forward
+    facet: planning
+    evidence:
+      level: established
+      refs: [apa2022, barkley2011]
+      basis: "DSM-5-TR ADHD A1(e): difficulty organising tasks; BDEFS self-organisation facet"
+    rationale: Planning and task decomposition.
+    status: draft
+  - id: EXF-05
+    section: traits
+    dimension: EXF
+    text: I keep my belongings and paperwork well organised without much effort.
+    keyed: reverse
+    facet: organisation of belongings
+    evidence:
+      level: established
+      refs: [apa2022, barkley2011]
+      basis: "DSM-5-TR ADHD A1(e): keeping materials and belongings in order"
+    rationale: Reverse-keyed organisation.
+    status: draft
+  - id: EXF-06
+    section: traits
+    dimension: EXF
+    text: I remember appointments and deadlines without needing reminders.
+    keyed: reverse
+    facet: prospective memory
+    evidence:
+      level: established
+      refs: [apa2022, barkley2011]
+      basis: "DSM-5-TR ADHD A1(i): forgetful in daily activities, e.g. keeping appointments"
+    rationale: Reverse-keyed prospective memory.
+    status: draft
+
+  # ---- SOC: Social Decoding -------------------------------------------------
+  - id: SOC-01
+    section: traits
+    dimension: SOC
+    text: I find it hard to tell when someone is joking or being sarcastic.
+    keyed: forward
+    facet: non-literal language
+    evidence:
+      level: established
+      refs: [apa2022, happe1994, baroncohen2001]
+      basis: "DSM-5-TR autism A1/A2; difficulty with non-literal language such as sarcasm (Strange Stories)"
+    rationale: Understanding non-literal/pragmatic language.
+    status: draft
+  - id: SOC-02
+    section: traits
+    dimension: SOC
+    text: Small talk feels like hard work, even with friendly people.
+    keyed: forward
+    facet: reciprocal conversation
+    evidence:
+      level: established
+      refs: [apa2022, baroncohen2001]
+      basis: "DSM-5-TR autism A1: differences in back-and-forth conversation; AQ social skill subscale"
+    rationale: Effort of unstructured social exchange; "friendly people" reduces social-anxiety confound.
+    status: draft
+  - id: SOC-03
+    section: traits
+    dimension: SOC
+    text: People have told me I seem blunt when I was simply being honest.
+    keyed: forward
+    facet: communication style
+    evidence:
+      level: emerging
+      refs: [apa2022, russell2019, milton2012]
+      basis: "DSM-5-TR autism A3 (adjusting behaviour to social context); directness and honesty reported as autistic traits"
+    rationale: Direct communication style as perceived by others.
+    status: draft
+  - id: SOC-04
+    section: traits
+    dimension: SOC
+    text: I plan or rehearse what to say before ordinary social situations.
+    keyed: forward
+    facet: scripting / camouflaging
+    evidence:
+      level: emerging
+      refs: [hull2019, lai2017]
+      basis: "Scripting and rehearsal are camouflaging strategies measured by the CAT-Q"
+    rationale: Conscious scripting, a common camouflaging strategy (helps detect masked profiles).
+    status: draft
+  - id: SOC-05
+    section: traits
+    dimension: SOC
+    text: I can usually tell how someone feels from their face or tone of voice.
+    keyed: reverse
+    facet: emotion recognition
+    evidence:
+      level: established
+      refs: [apa2022, uljarevic2013]
+      basis: "DSM-5-TR autism A2 (non-verbal communication); meta-analytic evidence for emotion-recognition differences"
+    rationale: Reverse-keyed intuitive emotion reading.
+    status: draft
+  - id: SOC-06
+    section: traits
+    dimension: SOC
+    text: I quickly pick up the unwritten rules when I join a new group.
+    keyed: reverse
+    facet: implicit social rules
+    evidence:
+      level: established
+      refs: [apa2022, baroncohen2001]
+      basis: "DSM-5-TR autism A3: understanding relationships and implicit social rules"
+    rationale: Reverse-keyed implicit social learning.
+    status: draft
+
+  # ---- SEN: Sensory Intensity -----------------------------------------------
+  - id: SEN-01
+    section: traits
+    dimension: SEN
+    text: Some everyday sounds, like chewing or a ticking clock, feel almost painful to me.
+    keyed: forward
+    facet: auditory sensitivity
+    evidence:
+      level: established
+      refs: [apa2022, williams2021, robertson2013]
+      basis: "DSM-5-TR autism B4: adverse response to specific sounds; meta-analysis of decreased sound tolerance"
+    rationale: Auditory over-responsivity / misophonia-like reactions.
+    status: draft
+  - id: SEN-02
+    section: traits
+    dimension: SEN
+    text: Clothing labels, seams or certain fabrics bother me so much that I avoid them.
+    keyed: forward
+    facet: tactile sensitivity
+    evidence:
+      level: established
+      refs: [apa2022, cascio2008, tavassoli2014]
+      basis: "DSM-5-TR autism B4: adverse response to specific textures; heightened tactile sensitivity"
+    rationale: Tactile over-responsivity with behavioural avoidance.
+    status: draft
+  - id: SEN-03
+    section: traits
+    dimension: SEN
+    text: Bright or flickering lights quickly wear me out.
+    keyed: forward
+    facet: visual sensitivity
+    evidence:
+      level: established
+      refs: [simmons2009, kooij2014, robertson2013]
+      basis: "Visual hypersensitivity in autism and self-reported photophobia in adult ADHD"
+    rationale: Visual over-responsivity.
+    status: draft
+  - id: SEN-04
+    section: traits
+    dimension: SEN
+    text: In busy places like supermarkets, all the noise, light and movement overwhelms me.
+    keyed: forward
+    facet: multisensory overload
+    evidence:
+      level: established
+      refs: [bensasson2009, bijlenga2017, brown2002]
+      basis: "Sensory over-responsivity elevated in autism (meta-analysis) and adult ADHD; AASP sensation avoiding"
+    rationale: Multisensory overload in a common setting; lists sources of one experience (overload).
+    status: draft
+  - id: SEN-05
+    section: traits
+    dimension: SEN
+    text: Strong smells rarely bother me.
+    keyed: reverse
+    facet: olfactory sensitivity
+    evidence:
+      level: emerging
+      refs: [robertson2013, tavassoli2014]
+      basis: "Olfactory hypersensitivity is included in adult sensory questionnaires, but group evidence is mixed"
+    rationale: Reverse-keyed olfactory sensitivity.
+    status: draft
+  - id: SEN-06
+    section: traits
+    dimension: SEN
+    text: I cope with sudden loud noises as easily as most people do.
+    keyed: reverse
+    facet: auditory sensitivity
+    evidence:
+      level: established
+      refs: [apa2022, williams2021]
+      basis: "DSM-5-TR autism B4: adverse response to sounds; hyperacusis prevalence meta-analysis"
+    rationale: Reverse-keyed; paired with SEN-01 for the consistency check.
+    status: draft
+
+  # ---- RTN: Routine & Deep Focus --------------------------------------------
+  - id: RTN-01
+    section: traits
+    dimension: RTN
+    text: I feel uneasy when my plans for the day change at short notice.
+    keyed: forward
+    facet: insistence on sameness
+    evidence:
+      level: established
+      refs: [apa2022, baroncohen2001]
+      basis: "DSM-5-TR autism B2: distress at small changes"
+    rationale: Distress at unexpected change.
+    status: draft
+  - id: RTN-02
+    section: traits
+    dimension: RTN
+    text: I have intense interests that I could think or talk about for hours.
+    keyed: forward
+    facet: focused interests
+    evidence:
+      level: established
+      refs: [apa2022, russell2019]
+      basis: "DSM-5-TR autism B3: restricted interests that are abnormal in intensity or focus"
+    rationale: Intensity of circumscribed interests.
+    status: draft
+  - id: RTN-03
+    section: traits
+    dimension: RTN
+    text: I notice small details or patterns that other people tend to miss.
+    keyed: forward
+    facet: detail-focused perception
+    evidence:
+      level: emerging
+      refs: [baroncohen2001]
+      basis: "AQ attention-to-detail subscale; less specific to autism than other subscales"
+    rationale: Local/detail-focused processing.
+    status: draft
+  - id: RTN-04
+    section: traits
+    dimension: RTN
+    text: I prefer to do everyday things in exactly the same way each time.
+    keyed: forward
+    facet: routines
+    evidence:
+      level: established
+      refs: [apa2022]
+      basis: "DSM-5-TR autism B2: inflexible adherence to routines"
+    rationale: Preference for fixed routines.
+    status: draft
+  - id: RTN-05
+    section: traits
+    dimension: RTN
+    text: I enjoy spontaneous changes of plan.
+    keyed: reverse
+    facet: insistence on sameness
+    evidence:
+      level: established
+      refs: [apa2022]
+      basis: "DSM-5-TR autism B2: insistence on sameness, difficulty with transitions"
+    rationale: Reverse-keyed; paired with RTN-01 for the consistency check.
+    status: draft
+  - id: RTN-06
+    section: traits
+    dimension: RTN
+    text: I like trying a new route, restaurant or method just for variety.
+    keyed: reverse
+    facet: novelty preference
+    evidence:
+      level: established
+      refs: [apa2022]
+      basis: "DSM-5-TR autism B2: need to take the same route or eat the same food every day"
+    rationale: Reverse-keyed preference for variety; examples illustrate one behaviour.
+    status: draft
+
+  # ---- LIT: Word Decoding ---------------------------------------------------
+  - id: LIT-01
+    section: traits
+    dimension: LIT
+    text: Reading takes me noticeably longer than it takes most people.
+    keyed: forward
+    facet: reading fluency
+    evidence:
+      level: established
+      refs: [apa2022, peterson2012, lefly2000]
+      basis: "DSM-5-TR specific learning disorder A1: slow, effortful word reading; persists in adults"
+    rationale: Self-perceived reading speed relative to peers.
+    status: draft
+  - id: LIT-02
+    section: traits
+    dimension: LIT
+    text: Spelling is hard for me, even with words I use often.
+    keyed: forward
+    facet: spelling
+    evidence:
+      level: established
+      refs: [apa2022, peterson2012, lefly2000]
+      basis: "DSM-5-TR specific learning disorder A3: difficulties with spelling"
+    rationale: Orthographic memory for familiar words.
+    status: draft
+  - id: LIT-03
+    section: traits
+    dimension: LIT
+    text: I mix up similar-looking letters or words, like b/d or "was"/"saw".
+    keyed: forward
+    facet: letter/word confusion
+    evidence:
+      level: emerging
+      refs: [vellutino2004]
+      basis: "Letter and word confusions are commonly reported, but reversal errors are not specific to dyslexia, so weighted as emerging"
+    rationale: Visual-orthographic confusions; examples illustrate one behaviour.
+    status: draft
+  - id: LIT-04
+    section: traits
+    dimension: LIT
+    text: I stumble over words when I read aloud.
+    keyed: forward
+    facet: oral reading
+    evidence:
+      level: established
+      refs: [apa2022, lefly2000]
+      basis: "DSM-5-TR specific learning disorder A1: inaccurate word reading (oral reading)"
+    rationale: Decoding accuracy under oral reading.
+    status: draft
+  - id: LIT-05
+    section: traits
+    dimension: LIT
+    text: I can easily sound out long, unfamiliar words.
+    keyed: reverse
+    facet: phonological decoding
+    evidence:
+      level: established
+      refs: [vellutino2004, peterson2012]
+      basis: "Phonological decoding of unfamiliar words is the core deficit in dyslexia"
+    rationale: Reverse-keyed decoding of unfamiliar words (pseudo-word decoding analogue).
+    status: draft
+  - id: LIT-06
+    section: traits
+    dimension: LIT
+    text: I can quickly skim a page and pick out the key words.
+    keyed: reverse
+    facet: reading efficiency
+    evidence:
+      level: emerging
+      refs: [peterson2012]
+      basis: "Reading efficiency; skimming draws on fluency but also on strategy, so weighted as emerging"
+    rationale: Reverse-keyed reading efficiency.
+    status: draft
+
+  # ---- NUM: Number Sense ----------------------------------------------------
+  - id: NUM-01
+    section: traits
+    dimension: NUM
+    text: Mental arithmetic, such as working out change, is slow or stressful for me.
+    keyed: forward
+    facet: mental arithmetic
+    evidence:
+      level: established
+      refs: [apa2022, butterworth2011]
+      basis: "DSM-5-TR specific learning disorder A5: number facts and calculation"
+    rationale: Everyday calculation fluency.
+    status: draft
+  - id: NUM-02
+    section: traits
+    dimension: NUM
+    text: I find it hard to judge how many things are in a small group at a glance.
+    keyed: forward
+    facet: subitising / estimation
+    evidence:
+      level: emerging
+      refs: [schleifer2011, piazza2010]
+      basis: "Slower subitising and impaired number acuity in dyscalculia (lab evidence; self-report not yet validated)"
+    rationale: Quick quantity perception; core number-sense deficit marker.
+    status: draft
+  - id: NUM-03
+    section: traits
+    dimension: NUM
+    text: I swap or reverse digits when copying numbers like phone numbers or codes.
+    keyed: forward
+    facet: digit sequencing
+    evidence:
+      level: exploratory
+      refs: []
+      basis: "Digit transposition is often reported by adults with dyscalculia, but no peer-reviewed evidence was found. Collected for pilot analysis and not scored"
+    rationale: Digit transposition errors.
+    status: draft
+  - id: NUM-04
+    section: traits
+    dimension: NUM
+    text: Reading analogue clocks or timetables is harder for me than for most people.
+    keyed: forward
+    facet: applied numeracy
+    evidence:
+      level: emerging
+      refs: [apa2022, butterworth2005]
+      basis: "Applied numeracy (time, schedules) depends on number sense; DSM-5-TR A5/A6"
+    rationale: Applied numerical reading in daily life.
+    status: draft
+  - id: NUM-05
+    section: traits
+    dimension: NUM
+    text: I can easily compare two prices to see which is the better deal.
+    keyed: reverse
+    facet: magnitude comparison
+    evidence:
+      level: established
+      refs: [piazza2010, butterworth2011]
+      basis: "Magnitude comparison is a core marker of dyscalculia"
+    rationale: Reverse-keyed magnitude comparison.
+    status: draft
+  - id: NUM-06
+    section: traits
+    dimension: NUM
+    text: I remember number facts, such as times tables, without effort.
+    keyed: reverse
+    facet: arithmetic fact retrieval
+    evidence:
+      level: established
+      refs: [apa2022, butterworth2011]
+      basis: "DSM-5-TR specific learning disorder A5: difficulty mastering number facts"
+    rationale: Reverse-keyed number-fact retrieval.
+    status: draft
+
+  # ---- MOT: Motor Coordination ----------------------------------------------
+  - id: MOT-01
+    section: traits
+    dimension: MOT
+    text: I bump into things or drop things more often than other people do.
+    keyed: forward
+    facet: gross motor / spatial
+    evidence:
+      level: established
+      refs: [apa2022, kirby2010]
+      basis: "DSM-5-TR DCD A: clumsiness, e.g. dropping or bumping into objects"
+    rationale: Everyday clumsiness; paired with MOT-05 for the consistency check.
+    status: draft
+  - id: MOT-02
+    section: traits
+    dimension: MOT
+    text: Handwriting is tiring for me, or others find it hard to read.
+    keyed: forward
+    facet: handwriting
+    evidence:
+      level: established
+      refs: [apa2022, kirby2010, blank2019]
+      basis: "DSM-5-TR DCD A: slow or inaccurate handwriting"
+    rationale: Graphomotor difficulty (effort or legibility are two signs of one difficulty).
+    status: draft
+  - id: MOT-03
+    section: traits
+    dimension: MOT
+    text: Learning a new physical skill, like a sport or dance, takes me longer than others.
+    keyed: forward
+    facet: motor learning
+    evidence:
+      level: established
+      refs: [apa2022, blank2019]
+      basis: "DSM-5-TR DCD A: acquisition of coordinated motor skills (e.g. sports) below expected"
+    rationale: Motor skill acquisition.
+    status: draft
+  - id: MOT-04
+    section: traits
+    dimension: MOT
+    text: Fiddly tasks like tying laces, doing up buttons or using scissors are awkward for me.
+    keyed: forward
+    facet: fine motor
+    evidence:
+      level: established
+      refs: [apa2022, kirby2010]
+      basis: "DSM-5-TR DCD A: fine motor tasks such as using scissors or cutlery"
+    rationale: Fine motor dexterity; examples illustrate one behaviour.
+    status: draft
+  - id: MOT-05
+    section: traits
+    dimension: MOT
+    text: I would describe myself as physically well coordinated.
+    keyed: reverse
+    facet: global self-rating
+    evidence:
+      level: established
+      refs: [kirby2010, blank2019]
+      basis: "Global coordination self-rating (ADC checklist)"
+    rationale: Reverse-keyed global coordination.
+    status: draft
+  - id: MOT-06
+    section: traits
+    dimension: MOT
+    text: I can catch a ball thrown to me without much difficulty.
+    keyed: reverse
+    facet: eye-hand coordination
+    evidence:
+      level: established
+      refs: [apa2022, kirby2010]
+      basis: "DSM-5-TR DCD A: catching an object"
+    rationale: Reverse-keyed eye-hand coordination.
+    status: draft
+
+  # ===========================================================================
+  #  PART 2: EVERYDAY PREFERENCES ("comfort zone")
+  #  Formats: likert | bipolar (two labelled poles, 0..4) | choice (options)
+  #  choice items: each option gives a keyed value (0..4) per dimension.
+  #  Items without a dimension are descriptive only (shown in the report).
+  # ===========================================================================
+  - id: PRF-01
+    section: preferences
+    format: bipolar
+    topic: light
+    icon: light
+    dimension: SEN
+    keyed: reverse           # preferring dimmer light -> higher SEN
+    text: When you can choose, what kind of lighting do you prefer for everyday tasks?
+    poles: [Much dimmer than most people like, Much brighter than most people like]
+    facet: visual sensitivity (preference)
+    evidence:
+      level: emerging
+      refs: [kooij2014, simmons2009, bijlenga2017]
+      basis: "Photophobia is common in adult ADHD and visual hypersensitivity in autism; a preference for dim light is an everyday expression of this"
+    rationale: Lighting preference as a low-threat, everyday proxy for visual sensitivity.
+    status: draft
+
+  - id: PRF-02
+    section: preferences
+    format: choice
+    topic: sound
+    icon: sound
+    text: Which sound environment helps you concentrate best?
+    options:
+      - label: Complete silence. Most sounds distract or bother me
+        scores: { SEN: 4, ATT: 1 }
+      - label: Quiet, with only soft background sounds
+        scores: { SEN: 1, ATT: 1 }
+      - label: Steady background noise or music (café hum, white noise)
+        scores: { SEN: 1, ATT: 3 }
+      - label: Lively sound. The more going on, the better I focus
+        scores: { SEN: 0, ATT: 4 }
+      - label: It makes no real difference to me
+        scores: { SEN: 0, ATT: 0 }
+    facet: auditory sensitivity / stimulation seeking
+    evidence:
+      level: emerging
+      refs: [williams2021, soderlund2007, sikstrom2007]
+      basis: "Decreased sound tolerance is common in autism; background noise can improve performance in ADHD (moderate brain arousal model)"
+    rationale: One question separates two documented patterns, needing silence (sensory) and seeking background stimulation (attention).
+    status: draft
+
+  - id: PRF-03
+    section: preferences
+    format: likert
+    topic: temperature
+    icon: temperature
+    dimension: SEN
+    keyed: forward
+    text: Small temperature changes, like a slightly warm room or a cool draught, bother me more than they seem to bother others.
+    facet: thermal sensitivity
+    evidence:
+      level: emerging
+      refs: [cascio2008, apa2022]
+      basis: "Heightened thermal-pain sensitivity in autistic adults; DSM-5-TR autism B4 names temperature among sensory reactivity examples"
+    rationale: Temperature reactivity is part of everyday sensory experience but not covered by the trait items.
+    status: draft
+
+  - id: PRF-04
+    section: preferences
+    format: likert
+    topic: humidity
+    icon: humidity
+    text: Humid, muggy air makes me noticeably uncomfortable.
+    facet: humidity comfort
+    evidence:
+      level: exploratory
+      refs: []
+      basis: "No peer-reviewed evidence was found linking humidity preference to a neurodivergent profile. Collected for the comfort-zone panel and future pilot analysis; not scored"
+    rationale: Asked because respondents and clinicians mention it; scoring waits for data.
+    status: draft
+
+  - id: PRF-05
+    section: preferences
+    format: likert
+    topic: food texture
+    icon: food
+    dimension: SEN
+    keyed: forward
+    text: I avoid some foods because of their texture rather than their taste.
+    facet: oral-tactile sensitivity
+    evidence:
+      level: emerging
+      refs: [cermak2010, kinnaird2019]
+      basis: "Texture-driven food selectivity linked to sensory sensitivity in autistic children; autistic adults describe sensory reasons for food avoidance"
+    rationale: Food texture is a common everyday expression of tactile sensitivity.
+    status: draft
+
+  - id: PRF-06
+    section: preferences
+    format: likert
+    topic: movement
+    icon: movement
+    dimension: IMP
+    keyed: forward
+    text: I concentrate better when I can move around, for example pacing or walking while I think.
+    facet: movement for focus
+    evidence:
+      level: emerging
+      refs: [sarver2015]
+      basis: "In ADHD, more movement during cognitive tasks is associated with better working-memory performance"
+    rationale: Framed as a preference (helps focus) rather than a problem, to reduce stigma.
+    status: draft
+
+  - id: PRF-07
+    section: preferences
+    format: bipolar
+    topic: daily rhythm
+    icon: rhythm
+    text: When do you naturally feel most alert and productive?
+    poles: [Early in the morning, Late in the evening or at night]
+    facet: chronotype
+    evidence:
+      level: emerging
+      refs: [coogan2017]
+      basis: "Evening chronotype is more common in ADHD. Not scored in v0 because no measured dimension covers circadian rhythm; candidate for a future dimension"
+    rationale: Useful for the comfort-zone panel and practical tips; descriptive only.
+    status: draft
+
+  - id: PRF-08
+    section: preferences
+    format: likert
+    topic: workspace
+    icon: workspace
+    dimension: RTN
+    keyed: forward
+    text: I like my workspace or room arranged exactly the same way every day.
+    facet: environmental sameness
+    evidence:
+      level: established
+      refs: [apa2022]
+      basis: "DSM-5-TR autism B2: insistence on sameness"
+    rationale: Environmental expression of preference for sameness.
+    status: draft
+
+# -----------------------------------------------------------------------------
+#  ATTENTION CHECKS: not scored. Used by the validity rules in scoring.yaml.
+# -----------------------------------------------------------------------------
+attention_checks:
+  - id: CHK-01
+    text: To show you are reading carefully, please choose "Disagree" for this one.
+    expected_value: 1
+  - id: CHK-02
+    text: This is a quick check. Please choose "Strongly agree".
+    expected_value: 4
+
+# -----------------------------------------------------------------------------
+#  BEHAVIOURAL TASKS (optional, performance-based)
+#  Task metrics feed dimensions through the weights in scoring.yaml.
+# -----------------------------------------------------------------------------
+tasks:
+  - id: GNG
+    type: go_nogo
+    name: Quick Reactions
+    status: experimental
+    optional: true
+    refs: [wright2014, kofler2013]
+    description: >
+      Tap (or press Space) as fast as you can when you see the green circle.
+      Do NOT respond to the red square. About 90 seconds.
+    params:
+      practice_trials: 6
+      trials: 60
+      nogo_ratio: 0.25
+      stimulus_ms: 600
+      response_window_ms: 1000
+      isi_ms: [500, 900]       # random inter-stimulus interval range
+      anticipation_ms: 150     # responses faster than this are anticipations
+      seed: 4242
+    metrics:
+      - id: commission_rate
+        description: Proportion of no-go trials with a response (impulsive responding).
+      - id: omission_rate
+        description: Proportion of go trials with no response (attention lapses).
+      - id: rt_mean_ms
+        description: Mean reaction time on correct go trials.
+      - id: rt_cv
+        description: Reaction time coefficient of variation (SD / mean), an index of attentional consistency.

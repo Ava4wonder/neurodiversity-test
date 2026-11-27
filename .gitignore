@@ -1,0 +1,7 @@
+node_modules/
+dist/
+*.log
+.DS_Store
+# research data must never be committed (may contain self-reported health info)
+research/responses/*
+!research/responses/README.md
